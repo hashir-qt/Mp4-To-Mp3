@@ -1,6 +1,7 @@
 import streamlit as st 
 import os
 import base64
+os.system("apt-get update && apt-get install -y ffmpeg")
 from moviepy.video.io.VideoFileClip import VideoFileClip
 from io import BytesIO
 
