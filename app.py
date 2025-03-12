@@ -32,13 +32,13 @@ def convert_mp4_to_mp3(uploaded_file):
 
     return mp3_buffer
 
-def generate_shareable_link(mp3_buffer):
-    """Generate a download button that works for iOS."""
+def generate_download_button(mp3_buffer):
+    """Ensure the MP3 file is downloadable, including on iOS."""
     st.download_button(
-        label="Download & Share MP3",
-        data=mp3_buffer,
-        file_name="output.mp3",
-        mime="audio/mp3"
+        label="Download MP3",
+        data=mp3_buffer.getvalue(),  # Ensure proper byte format
+        file_name="converted_audio.mp3",
+        mime="audio/mpeg"
     )
 
 def main():
@@ -55,10 +55,13 @@ def main():
                 mp3_buffer = convert_mp4_to_mp3(uploaded_file)
                 
                 st.success("Conversion Successful!")
-                st.audio(mp3_buffer, format="audio/mp3")
+                st.audio(mp3_buffer, format="audio/mpeg")
                 
-                st.write("Share the MP3 file using the button below:")
-                generate_shareable_link(mp3_buffer)
+                st.write("Download your MP3 file below:")
+                generate_download_button(mp3_buffer)
+
+                # Provide a shareable suggestion
+                st.write("To share this MP3, upload it to Google Drive, Dropbox, or another file-sharing service and share the link.")
                 
 if __name__ == "__main__":
     main()
